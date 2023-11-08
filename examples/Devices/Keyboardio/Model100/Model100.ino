@@ -168,40 +168,42 @@ enum {
   */
 
 enum {
-  PRIMARY,
+  QWERTY,
   NUMPAD,
-  FUNCTION,
-};  // layers
+  LOWER,
+  RAISE,
+  MOUSE,
+  ARROW,
+  FN,
+  ADJUST
+}; // layers
+
+//#define Key_Meh RALT(LSHIFT(Key_RightControl))
+#define J_Bang LSHIFT(Key_1)
+#define J_At LSHIFT(Key_2)
+#define J_Pound LSHIFT(Key_3)
+#define J_Dollar LSHIFT(Key_4)
+#define J_Perc LSHIFT(Key_5)
+#define J_Caret LSHIFT(Key_6)
+#define J_Amp LSHIFT(Key_7)
+#define J_Star LSHIFT(Key_8)
+
+#define J_Tilde LSHIFT(Key_Backtick)
+#define J_Unds LSHIFT(Key_Minus)
+#define J_Plus LSHIFT(Key_Equals)
+
+#define J_Fauxina Key_Backtick
+#define J_DoubleQ LSHIFT(Key_Quote)
 
 
-/**
-  * To change your keyboard's layout from QWERTY to DVORAK or COLEMAK, comment out the line
-  *
-  * #define PRIMARY_KEYMAP_QWERTY
-  *
-  * by changing it to
-  *
-  * // #define PRIMARY_KEYMAP_QWERTY
-  *
-  * Then uncomment the line corresponding to the layout you want to use.
-  *
-  */
-
-#define PRIMARY_KEYMAP_QWERTY
-// #define PRIMARY_KEYMAP_DVORAK
-// #define PRIMARY_KEYMAP_COLEMAK
-// #define PRIMARY_KEYMAP_CUSTOM
-
-
-/* This comment temporarily turns off astyle's indent enforcement
+/** This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
  */
 // clang-format off
 
 KEYMAPS(
-
-#if defined (PRIMARY_KEYMAP_QWERTY)
-  [PRIMARY] = KEYMAP_STACKED
+  /*
+  [QWERTY] = KEYMAP_STACKED
   (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
    Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
@@ -215,65 +217,21 @@ KEYMAPS(
    Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
    Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
    ShiftToLayer(FUNCTION)),
+  */
+  [QWERTY] = KEYMAP_STACKED
+  (___,               Key_1, Key_2, Key_3, Key_4, Key_5, Key_Backtick,
+   Key_Backtick,      Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
+   Key_F18,           Key_A, Key_S, Key_D, Key_F, Key_G,
+   Key_LEDEffectNext, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_LeftControl, //CTL_T(Escape),
+                                                  Key_LeftAlt, Key_Backspace, Key_LeftGui, Key_LeftShift,
+                                                                   ShiftToLayer(LOWER),
 
-#elif defined (PRIMARY_KEYMAP_DVORAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),   Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(NUMPAD),
-   Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                   Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_COLEMAK)
-
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_B, Key_Tab,
-   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_D, Key_V, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
-                  Key_M, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   Key_RightAlt,  Key_K, Key_H, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#elif defined (PRIMARY_KEYMAP_CUSTOM)
-  // Edit this keymap to make a custom layout
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   ShiftToLayer(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
-                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
-   Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
-
-#else
-
-#error "No default keymap defined. You should make sure that you have a line like '#define PRIMARY_KEYMAP_QWERTY' in your sketch"
-
-#endif
-
-
+                          Key_Backslash, Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
+                          Key_Quote,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
+                                         Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
+                          Key_Enter,     Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   Key_RightShift,Key_Meh, Key_Spacebar, Key_RightControl,
+                  ShiftToLayer(RAISE)),
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
@@ -290,7 +248,68 @@ KEYMAPS(
    ___, ___, ___, ___,
    ___),
 
-  [FUNCTION] =  KEYMAP_STACKED
+
+[LOWER] =  KEYMAP_STACKED
+  (___,     Key_F1, Key_F2, Key_F3,  Key_F4,   Key_F5, J_Tilde,
+   J_Tilde, J_Bang, J_At,   J_Pound, J_Dollar, J_Perc, J_Tilde,
+   ___,     ___,    ___,    ___,     ___,      ___,
+   ___,     ___,    ___,    ___,     ___,      ___,    ___,
+                                               ___,    ___, ___,    ___,
+                                               ShiftToLayer(FN),
+
+             Key_Pipe, Key_F6,  Key_F7, Key_F8, Key_F9,          Key_F10,            Key_F11,
+             J_DoubleQ,J_Caret, J_Amp,  J_Star, Key_LeftParen,   Key_RightParen,     Key_F12,
+                  ___,  J_Unds, J_Plus, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Pipe,
+             ___, ___,  ___,    ___,    ___,                  ___,                   ___,
+   ___, ___, ___, ___,
+   ShiftToLayer(FN)),
+
+  [RAISE] =  KEYMAP_STACKED
+  (___,  Key_F1, Key_F2, Key_F3, Key_F4, Key_F5, Key_Backtick,
+   Key_Backtick,  Key_1,  Key_2,  Key_3,  Key_4,  Key_5,  Key_Backtick,
+   ___,  ___,    ___,    ___,    ___,    ___,
+   ___,  ___,    ___,    ___,    ___,    ___,    ___,
+   ___, ___, ___, ___,
+   ShiftToLayer(FN),
+
+   ___,       Key_F6, Key_F7,    Key_F8,     Key_F9,       Key_F10,      Key_F11,
+   J_Fauxina, Key_6,  Key_7,     Key_8,      Key_9,        Key_0,        Key_F12,
+              ___,    Key_Minus, Key_Equals, Key_LBracket, Key_RBracket, Key_Backslash,
+   ___, ___,    ___,       ___,        ___,          ___,          ___,
+   ___, ___, ___, ___,
+   ShiftToLayer(FN)),
+
+  [MOUSE] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   M(MACRO_VERSION_INFO),  ___, ___, ___, ___, ___, ___,
+   ___,                    ___, Key_mouseBtnL, Key_mouseUp, Key_mouseBtnR, ___, ___,
+                           ___, Key_mouseL, Key_mouseDn,      Key_mouseR, ___, Key_mouseScrollUp,
+   ___,                    ___, ___,        ___, ___,                     ___, Key_mouseScrollDn,
+   ___, ___, ___, ___,
+   ___),
+
+  [ARROW] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   M(MACRO_VERSION_INFO),  ___, ___, ___, ___, ___, ___,
+   ___,                    ___, Key_PageUp,    Key_UpArrow,   Key_Home, ___, ___,
+                           ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
+   ___,                    ___, Key_PageDown,  ___,           Key_End, ___, ___,
+   ___, ___, ___, ___,
+   ___),
+
+  [FN] =  KEYMAP_STACKED
   (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           Key_CapsLock,
    Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
    Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
@@ -560,26 +579,26 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // The chase effect follows the adventure of a blue pixel which chases a red pixel across
   // your keyboard. Spoiler: the blue pixel never catches the red pixel
-  LEDChaseEffect,
+  // LEDChaseEffect,
 
   // These static effects turn your keyboard's LEDs a variety of colors
-  solidRed,
+  // solidRed,
   solidOrange,
-  solidYellow,
-  solidGreen,
-  solidBlue,
-  solidIndigo,
-  solidViolet,
+  // solidYellow,
+  // solidGreen,
+  // solidBlue,
+  // solidIndigo,
+  // solidViolet,
 
   // The breathe effect slowly pulses all of the LEDs on your keyboard
-  LEDBreatheEffect,
+  // LEDBreatheEffect,
 
   // The AlphaSquare effect prints each character you type, using your
   // keyboard's LEDs as a display
-  AlphaSquareEffect,
+  // AlphaSquareEffect,
 
   // The stalker effect lights up the keys you've pressed recently
-  StalkerEffect,
+  // StalkerEffect,
 
   // The LED Palette Theme plugin provides a shared palette for other plugins,
   // like Colormap below
@@ -619,12 +638,39 @@ KALEIDOSCOPE_INIT_PLUGINS(
  * Kaleidoscope and any plugins.
  */
 void setup() {
+  QUKEYS(
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 3), ShiftToLayer(MOUSE)),
+    kaleidoscope::plugin::Qukey(0, KeyAddr(2, 4), ShiftToLayer(ARROW))
+  )
+  Qukeys.setHoldTimeout(250);
+  Qukeys.setOverlapThreshold(0);
+
+/*
+  Qukeys.setHoldTimeout(1000);
+  Qukeys.setOverlapThreshold(50);
+  Qukeys.setMinimumHoldTime(100);
+  Qukeys.setMinimumPriorInterval(80);
+  Qukeys.setMaxIntervalForTapRepeat(150);
+*/
   // First, call Kaleidoscope's internal setup function
   Kaleidoscope.setup();
 
   // Set the hue of the boot greeting effect to something that will result in a
   // nice green color.
   BootGreetingEffect.hue = 85;
+
+  static kaleidoscope::plugin::SpaceCadet::KeyBinding spacecadetmap[] = {
+    {Key_LeftShift, Key_LeftParen, 250}
+    , {Key_RightShift, Key_RightParen, 250}
+    , {Key_LeftGui, Key_LeftCurlyBracket, 250}
+    , {Key_Meh, Key_RightCurlyBracket, 250}
+    //, {Key_LeftAlt, Key_RightCurlyBracket, 250}
+    , {Key_LeftAlt, Key_LeftBracket, 250}
+    , {Key_RightControl, Key_RightBracket, 250}
+    , SPACECADET_MAP_END
+  };
+  //Set the map.
+  SpaceCadet.setMap(spacecadetmap);
 
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
@@ -669,7 +715,8 @@ void setup() {
   // To avoid any surprises, SpaceCadet is turned off by default. However, it
   // can be permanently enabled via Chrysalis, so we should only disable it if
   // no configuration exists.
-  SpaceCadetConfig.disableSpaceCadetIfUnconfigured();
+  SpaceCadet.enable();
+  //SpaceCadetConfig.disableSpaceCadetIfUnconfigured();
 
   // Editable layer names are stored in EEPROM too, and we reserve 16 bytes per
   // layer for them. We need one extra byte per layer for bookkeeping, so we
